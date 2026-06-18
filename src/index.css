@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Color tokens grounded in WCAG AA + ophthalmology guidance:
+  - never pure white (#FFFFFF) or pure black (#000000)
+  - desaturated accents on dark to avoid halation
+  - every text/surface pair clears 4.5:1
+  RGB channels (space separated) so Tailwind alpha modifiers work.
+*/
+:root,
+[data-theme="light"] {
+  --c-bg: 246 245 241;        /* #F6F5F1 warm off-white */
+  --c-surface: 253 252 250;   /* #FDFCFA card */
+  --c-surface-2: 238 237 232; /* subtle elevation */
+  --c-border: 223 221 214;
+  --c-text: 34 39 46;         /* #22272E dark slate */
+  --c-muted: 91 100 112;      /* #5B6470 */
+  --c-primary: 47 143 127;    /* #2F8F7F teal */
+  --c-primary-fg: 253 252 250;
+  --c-success: 33 128 95;
+  --c-warning: 176 112 16;
+  --c-danger: 184 58 52;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --c-bg: 20 22 26;           /* #14161A soft dark gray */
+  --c-surface: 30 33 39;      /* #1E2127 card */
+  --c-surface-2: 39 43 51;    /* elevation */
+  --c-border: 51 56 66;
+  --c-text: 230 237 243;      /* #E6EDF3 off-white */
+  --c-muted: 154 164 178;     /* #9AA4B2 */
+  --c-primary: 95 184 166;    /* #5FB8A6 desaturated teal */
+  --c-primary-fg: 20 22 26;
+  --c-success: 92 196 153;
+  --c-warning: 224 176 92;
+  --c-danger: 234 122 116;
+  color-scheme: dark;
+}
+
+* {
+  border-color: rgb(var(--c-border));
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(var(--c-bg));
+  color: rgb(var(--c-text));
+  font-family: "Cairo", system-ui, "Segoe UI", Tahoma, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* number inputs without spinners for cleaner logging UI */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply btn bg-primary text-primary-fg hover:opacity-90;
+  }
+  .btn-ghost {
+    @apply btn bg-surface-2 text-text hover:bg-border;
+  }
+  .btn-outline {
+    @apply btn border border-border bg-transparent text-text hover:bg-surface-2;
+  }
+  .btn-danger {
+    @apply btn bg-danger text-white hover:opacity-90;
+  }
+  .card {
+    @apply rounded-2xl border border-border bg-surface shadow-card;
+  }
+  .input {
+    @apply w-full rounded-xl border border-border bg-bg px-3.5 py-2.5 text-sm text-text outline-none transition placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/30;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-text;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full bg-surface-2 px-3 py-1 text-xs font-medium text-muted;
+  }
+}
