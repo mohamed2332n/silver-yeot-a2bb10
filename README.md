@@ -36,12 +36,6 @@ A smart gym coaching PWA: a coach dashboard to manage an exercise library, train
 npm install
 ```
 
-2. أنشئ ملف `.env` (موجود نموذج في `.env.example`):
-
-```
-VITE_SUPABASE_URL=https://fhlpkdzotobztindxwpq.supabase.co
-VITE_SUPABASE_ANON_KEY=your-publishable-key
-```
 
 3. التشغيل:
 
